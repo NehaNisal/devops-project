@@ -304,8 +304,12 @@ terraform destroy
 
 ---
 
-## 🙋 Author
+## 🙋 Author 
+Neha Nisal
 
-**Riyaz Qureshi**
-GitHub: [@r4riyaz](https://github.com/r4riyaz)
+(MCA student)
+
+DevOps learner
+
+Tools used (Docker, Jenkins, Git, AWS etc
 
