@@ -1,30 +1,22 @@
 pipeline {
-  agent { label 'linux' }
+    agent { label 'worker' }
 
-  stages {
-    stage('Clone Repo') {
-      steps {
-        sh 'git --version'
-        git branch: 'main',
-            url: '<URL-OF-YOUR_REPO>'
-      }
-    }
-
-    stage('Build Docker Image') {
-      steps {
-        dir('apache-web') {
-          sh 'docker rmi --force apache-web || true'
-          sh 'docker build -t apache-web .'
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/NehaNisal/devops-project.git'
+            }
         }
-      }
-    }
 
-    stage('Run Apache Container') {
-      steps {
-        sh 'docker stop apache-web || true'
-        sh 'docker rm apache-web || true'
-        sh 'docker run -d -p 80:80 --name apache-web apache-web'
-      }
+        stage('Deploy to Apache') {
+            steps {
+                sh '''
+                sudo apt update
+                sudo apt install apache2 -y
+                sudo systemctl start apache2
+                sudo cp -r apache-web/* /var/www/html/
+                '''
+            }
+        }
     }
-  }
 }
