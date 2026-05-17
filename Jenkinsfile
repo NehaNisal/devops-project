@@ -1,10 +1,31 @@
 pipeline {
-    agent { label 'worker' }
+    agent any
 
     stages {
-        stage('Test') {
+
+        stage('Clone Code') {
             steps {
-                echo 'PIPELINE WORKING'
+                git 'https://github.com/NehaNisal/devops-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t devops-web apache-web/'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker stop web || true'
+                sh 'docker rm web || true'
+                sh 'docker run -d -p 8081:80 --name web devops-web'
+            }
+        }
+
+        stage('Done') {
+            steps {
+                echo 'Deployment Successful 🚀'
             }
         }
     }
