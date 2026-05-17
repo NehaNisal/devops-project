@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git 'https://github.com/NehaNisal/devops-project.git'
+                echo 'Cloning Done'
             }
         }
 
@@ -23,9 +23,9 @@ pipeline {
             }
         }
 
-        stage('Done') {
+        stage('Verify') {
             steps {
-                echo 'Deployment Successful 🚀'
+                echo 'Deployment Successful'
             }
         }
     }
