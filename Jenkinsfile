@@ -5,13 +5,15 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                echo 'Cloning Done'
+                git 'https://github.com/NehaNisal/devops-project.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t devops-web apache-web/'
+                dir('apache-web') {
+                    sh 'docker build -t devops-web .'
+                }
             }
         }
 
