@@ -11,13 +11,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('apache-web') {
-                    sh 'docker build -t devops-web .'
-                }
+                sh 'docker build -t devops-web apache-web/'
             }
         }
 
-        stage('Run Container') {
+        stage('Deploy Container') {
             steps {
                 sh 'docker stop web || true'
                 sh 'docker rm web || true'
@@ -25,10 +23,11 @@ pipeline {
             }
         }
 
-        stage('Verify') {
+        stage('Done') {
             steps {
-                echo 'Deployment Successful'
+                echo 'Auto Deploy Successful'
             }
         }
     }
 }
+    
